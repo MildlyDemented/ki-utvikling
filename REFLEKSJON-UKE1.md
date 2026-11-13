@@ -6,3 +6,7 @@ Utkast basert på arbeidet med Codex.
 2. Git-oppsettet tok mest tid. Først pekte mappen til feil GitHub-adresse. Etterpå måtte jeg løse en konflikt fordi både den lokale og den eksterne historikken hadde sin egen README.
 3. I planmodus beskriver agenten hva den vil gjøre, slik at jeg kan justere planen før den begynner. I vanlig modus kan agenten gå rett til å lage eller endre filer.
 4. Jeg kan sjekke partallprogrammet med positive, negative og ugyldige verdier, sammenligne primtall nr. 10 000 med fasiten og prøve både riktige, gale og ubesvarte spørsmål i quizen.
+
+## 2.1 – Copilot CLI
+
+Jeg installerte og startet GitHub Copilot CLI i prosjektmappen. Da jeg stilte spørsmålet om hvilke verktøy Copilot hadde tilgang til, fikk jeg feilkode 403. Copilot meldte at kontoen min ikke hadde tilgang til modellene på grunn av Copilot-policyen. Derfor fikk jeg ikke svar på spørsmålet, og jeg kunne ikke observere verktøytillatelser eller prøve planmodus i Copilot.
