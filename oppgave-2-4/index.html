@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="nb">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quiz om PC-bygging</title>
+    <style>
+        body { margin: 0; background: #111715; color: #f1f7f2; font: 1rem/1.55 "Segoe UI", sans-serif; }
+        main { max-width: 42rem; margin: auto; padding: 2rem 1rem; }
+        h1 { font-size: clamp(2rem, 6vw, 3.5rem); line-height: 1.1; margin: 0; }
+        fieldset { border: 1px solid #52685a; border-radius: .8rem; margin: 1.4rem 0; padding: .8rem 1rem; background: #202923; }
+        legend { font-weight: 700; }
+        label { display: block; padding: .4rem; cursor: pointer; }
+        input { accent-color: #7cff6b; }
+        button { font: inherit; font-weight: 700; padding: .65rem 1rem; border-radius: .5rem; border: 0; background: #7cff6b; color: #111715; cursor: pointer; }
+        button[type=reset] { background: #e0ebe3; }
+        .correct { color: #aaff9f; }
+        .wrong { color: #ffd094; }
+        .feedback { margin-bottom: 0; font-weight: 600; }
+    </style>
+</head>
+<body>
+<main>
+    <h1>Quiz om PC-bygging</h1>
+    <p>Velg ett svar per spørsmål. Trykk «Sjekk» for å se poeng og fasit.</p>
+    <form id="quiz">
+        <div id="questions"></div>
+        <button type="submit">Sjekk</button>
+        <button type="reset">Start på nytt</button>
+        <p id="score" role="status"></p>
+    </form>
+</main>
+<script>
+const questions = [
+    ['Hvilken del utfører instruksjonene i et program?', ['SSD', 'CPU', 'Strømforsyning', 'Kabinett'], 1],
+    ['Hva brukes RAM hovedsakelig til?', ['Midlertidige data i bruk', 'Permanent lagring', 'Å kjøle CPU-en', 'Å drive skjermen'], 0],
+    ['Hvilken del leverer strøm til komponentene?', ['GPU', 'SSD', 'PSU', 'RAM'], 2],
+    ['Hva bør du sjekke for å vite om CPU-en passer på hovedkortet?', ['Viftens farge', 'SSD-kapasiteten', 'Skjermens størrelse', 'Sokkel og CPU-støtte'], 3],
+    ['Hvilken del tegner vanligvis grafikken i et spill?', ['GPU', 'PSU', 'Nettverkskort', 'RAM'], 0],
+    ['Hvor legges kjølepasta ved montering av CPU-kjøler?', ['I RAM-sporet', 'Mellom CPU og kjøler', 'På SSD-kontakten', 'I strømforsyningen'], 1],
+    ['Hvilken enhet beholder lagrede filer når PC-en slås av?', ['RAM', 'CPU-cache', 'SSD', 'CPU-register'], 2],
+    ['Hva beskriver ATX og microATX for hovedkort?', ['Prosessorhastighet', 'Type nettverk', 'Lagringskapasitet', 'Fysisk format'], 3],
+    ['Hvor kobler du skjermkabelen når du vil bruke det dedikerte skjermkortet?', ['På skjermkortet', 'I en USB-port', 'På strømforsyningen', 'I en lydport'], 0],
+    ['Hva er vanlig nominell spenning for en 3-pins ARGB-kontakt?', ['3,3 V', '5 V', '12 V', '24 V'], 1]
+];
+
+const quiz = document.querySelector('#quiz');
+const score = document.querySelector('#score');
+const container = document.querySelector('#questions');
+
+container.innerHTML = questions.map(([question, options], index) => `
+    <fieldset>
+        <legend>${index + 1}. ${question}</legend>
+        ${options.map((option, choice) => `
+            <label><input type="radio" name="q${index}" value="${choice}"> ${option}</label>
+        `).join('')}
+        <p class="feedback" hidden></p>
+    </fieldset>
+`).join('');
+
+const feedback = container.querySelectorAll('.feedback');
+
+function clearFeedback() {
+    score.textContent = '';
+    for (const result of feedback) result.hidden = true;
+}
+
+quiz.addEventListener('input', clearFeedback);
+quiz.addEventListener('reset', clearFeedback);
+
+quiz.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const answers = new FormData(quiz);
+    let points = 0;
+
+    questions.forEach(([, options, correct], index) => {
+        const chosen = answers.get(`q${index}`);
+        const isCorrect = chosen === String(correct);
+        if (isCorrect) points++;
+        const result = feedback[index];
+        result.className = isCorrect ? 'feedback correct' : 'feedback wrong';
+        result.textContent = isCorrect ? 'Riktig!' :
+            `${chosen === null ? 'Ikke besvart.' : 'Feil.'} Riktig svar er ${options[correct]}.`;
+        result.hidden = false;
+    });
+
+    score.textContent = `Du fikk ${points} av ${questions.length} poeng.`;
+});
+</script>
+</body>
+</html>
