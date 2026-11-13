@@ -1,6 +1,6 @@
 # Refleksjon – uke 1
 
-Utkast basert på arbeidet med Codex. Punktene om egen opplevelse kan tilpasses etter gjennomgangen med Copilot.
+Utkast basert på arbeidet med Codex.
 
 1. Jeg ble overrasket over at agenten kunne lage både et terminalprogram og en quizside fra en kort beskrivelse.
 2. Git-oppsettet tok mest tid. Først pekte mappen til feil GitHub-adresse. Etterpå måtte jeg løse en konflikt fordi både den lokale og den eksterne historikken hadde sin egen README.
