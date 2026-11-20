@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Primtall nr. T</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 32rem; margin: 3rem auto; padding: 0 1rem; }
+    input, button { font-size: 1rem; padding: 0.5rem; }
+    #resultat { margin-top: 1.5rem; font-size: 1.1rem; }
+    .feil { color: #b00020; }
+  </style>
+</head>
+<body>
+  <h1>Primtall nr. T</h1>
+  <form id="skjema">
+    <label for="t">Skriv T (1 til 1 000 000):</label><br>
+    <input id="t" type="number" min="1" max="1000000" step="1" required>
+    <button type="submit">Finn primtall</button>
+  </form>
+  <p id="resultat" aria-live="polite"></p>
+
+  <script>
+    const MAKS = 1000000;
+
+    function nthPrime(n) {
+      // For n >= 6 er n * (ln n + ln ln n) en øvre grense.
+      const limit = n < 6 ? 15 : Math.ceil(n * (Math.log(n) + Math.log(Math.log(n))));
+      const composite = new Uint8Array(limit + 1);
+
+      for (let p = 2; p * p <= limit; p++) {
+        if (composite[p]) continue;
+        for (let multiple = p * p; multiple <= limit; multiple += p) {
+          composite[multiple] = 1;
+        }
+      }
+
+      let count = 0;
+      for (let candidate = 2; candidate <= limit; candidate++) {
+        if (!composite[candidate] && ++count === n) return candidate;
+      }
+      throw new Error("Fant ikke primtallet innenfor grensen.");
+    }
+
+    document.getElementById("skjema").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const svar = document.getElementById("t").value.trim();
+      const ut = document.getElementById("resultat");
+      const n = Number(svar);
+
+      if (!/^\d+$/.test(svar) || n < 1 || n > MAKS) {
+        ut.className = "feil";
+        ut.textContent = "Skriv et heltall fra 1 til 1 000 000.";
+        return;
+      }
+
+      const start = performance.now();
+      const primtall = nthPrime(n);
+      const tid = (performance.now() - start).toFixed(1);
+      ut.className = "";
+      ut.textContent = `Primtall nr. ${n.toLocaleString("no")} er ${primtall.toLocaleString("no")}. (${tid} ms)`;
+    });
+  </script>
+</body>
+</html>
