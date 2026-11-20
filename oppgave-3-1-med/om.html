@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Om denne siden: en skoleoppgave om responsiv webdesign.">
+  <title>Om siden – NVIDIA-landingsside</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="index.html">NVIDIA</a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="meny">
+      <span class="sr-only">Meny</span>
+      <span class="bars" aria-hidden="true"></span>
+    </button>
+    <nav id="meny" aria-label="Hovedmeny">
+      <a href="index.html#bruk">Bruksområder</a>
+      <a href="index.html#velg">Slik velger du</a>
+      <a href="index.html#cuda">For utviklere</a>
+      <a href="om.html" aria-current="page">Om siden</a>
+      <a class="pill" href="index.html#kontakt">Kontakt</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="about">
+      <h1>Om siden</h1>
+      <p class="lead">
+        Dette er en uoffisiell landingside for NVIDIA, laget som skoleoppgave
+        for å øve på responsiv webdesign.
+      </p>
+
+      <h2>Hva jeg har øvd på</h2>
+      <ul class="about-list">
+        <li>En meny som blir en hamburger på mobil.</li>
+        <li>Et layout som fungerer fra 375 px og opp til stor skjerm.</li>
+        <li>Et kontaktskjema med validering og tydelige feilmeldinger.</li>
+        <li>En egen stil, beskrevet i skillen <code>min-stil</code>.</li>
+      </ul>
+
+      <a class="pill" href="index.html">Tilbake til forsiden</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p class="legal">Uoffisiell landingside laget som skoleoppgave. NVIDIA, GeForce, RTX, DLSS og CUDA er varemerker som tilhører NVIDIA Corporation.</p>
+  </footer>
+
+  <script>
+    const knapp = document.querySelector(".menu-toggle");
+    const meny = document.getElementById("meny");
+    knapp.addEventListener("click", () => {
+      const apen = knapp.getAttribute("aria-expanded") !== "true";
+      knapp.setAttribute("aria-expanded", String(apen));
+      meny.classList.toggle("open", apen);
+    });
+  </script>
+</body>
+</html>

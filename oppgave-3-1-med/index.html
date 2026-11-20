@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Uoffisiell landingside for NVIDIA: se hvorfor en GPU løser oppgaver så mye raskere enn en CPU.">
+  <title>NVIDIA – Tusenvis av små regnestykker, samtidig</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="index.html">NVIDIA</a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="meny">
+      <span class="sr-only">Meny</span>
+      <span class="bars" aria-hidden="true"></span>
+    </button>
+    <nav id="meny" aria-label="Hovedmeny">
+      <a href="#bruk">Bruksområder</a>
+      <a href="#velg">Slik velger du</a>
+      <a href="#cuda">For utviklere</a>
+      <a href="om.html">Om siden</a>
+      <a class="pill" href="#kontakt">Kontakt</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-text">
+        <h1>Tusenvis av små regnestykker, samtidig.</h1>
+        <p class="lead">
+          En prosessor løser oppgaver én etter én. Et grafikkort deler dem opp og
+          løser mange om gangen. Det er hele forskjellen, og det er derfor
+          grafikk og AI kjører på GPU-er.
+        </p>
+      </div>
+      <img class="hero-img" src="hero.svg" alt="Rutenett av beregningskjerner der noen lyser grønt" width="480" height="360">
+
+      <div class="race" aria-label="Illustrasjon av CPU mot GPU">
+        <div class="race-controls">
+          <button id="start" type="button">Start løpet</button>
+          <p id="resultat" aria-live="polite">Begge skal fylle 288 ruter. Illustrasjon, ikke en måling.</p>
+        </div>
+
+        <div class="lane">
+          <div class="lane-head">
+            <h2>CPU</h2>
+            <p>6 arbeidere, 6 ruter per steg</p>
+            <output id="cpu-steg">0 steg</output>
+          </div>
+          <div class="field" id="cpu" aria-hidden="true"></div>
+        </div>
+
+        <div class="lane lane-gpu">
+          <div class="lane-head">
+            <h2>GPU</h2>
+            <p>48 arbeidere, 48 ruter per steg</p>
+            <output id="gpu-steg">0 steg</output>
+          </div>
+          <div class="field" id="gpu" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="uses" id="bruk">
+      <h2 class="section-title">Hva parallell regning brukes til</h2>
+
+      <article class="row">
+        <h3>Spill</h3>
+        <div>
+          <p>
+            Hver piksel på skjermen kan regnes ut uavhengig av de andre. Med
+            GeForce RTX følger lysstråler hvordan lys faktisk spretter rundt i
+            en scene, og DLSS bruker AI til å skalere opp bildet slik at du får
+            høyere bildefrekvens.
+          </p>
+        </div>
+      </article>
+
+      <article class="row">
+        <h3>AI</h3>
+        <div>
+          <p>
+            Å trene en modell er mye matriseregning, og matriseregning deler seg
+            pent i tusenvis av like deler. Samme maskinvare kjører den ferdige
+            modellen når du stiller et spørsmål.
+          </p>
+        </div>
+      </article>
+
+      <article class="row">
+        <h3>Forskning</h3>
+        <div>
+          <p>
+            Klimamodeller, proteinsimuleringer og materialforskning består av
+            enorme mengder like beregninger som kan kjøres side om side.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section class="choose" id="velg">
+      <h2 class="section-title">Slik velger du</h2>
+      <div class="choose-grid">
+        <div>
+          <h3>Du spiller</h3>
+          <p>Se etter et GeForce RTX-kort. Skjermens oppløsning og bildefrekvens avgjør hvor mye kraft du trenger.</p>
+        </div>
+        <div>
+          <h3>Du lager innhold</h3>
+          <p>Video, 3D og grafikk drar nytte av mye grafikkminne. Sjekk hva programmene dine anbefaler.</p>
+        </div>
+        <div>
+          <h3>Du jobber med AI</h3>
+          <p>Mengden grafikkminne bestemmer hvor store modeller du kan kjøre lokalt. Start med det du trenger, ikke mer.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="dev" id="cuda">
+      <div class="dev-text">
+        <h2>Slik ser det ut i kode</h2>
+        <p>
+          Med CUDA skriver du én funksjon, og hver tråd på GPU-en kjører den for
+          sitt eget element. Her legges to lister sammen, ett tall per tråd.
+        </p>
+        <a class="pill pill-light" href="https://developer.nvidia.com/cuda-zone" target="_blank" rel="noopener noreferrer">Les om CUDA</a>
+      </div>
+<pre class="code" aria-label="CUDA-eksempel"><code>__global__ void add(int n, float *a, float *b, float *c) {
+  int i = blockIdx.x * blockDim.x + threadIdx.x;
+  if (i &lt; n) c[i] = a[i] + b[i];
+}</code></pre>
+    </section>
+
+    <section class="contact" id="kontakt">
+      <div class="contact-intro">
+        <h2>Ta kontakt</h2>
+        <p>Har du et spørsmål om siden? Fyll ut skjemaet.</p>
+      </div>
+      <form id="skjema" novalidate>
+        <label for="navn">Navn</label>
+        <input id="navn" name="navn" type="text" autocomplete="name" required>
+        <p class="error" id="navn-feil" hidden>Skriv inn navnet ditt.</p>
+
+        <label for="epost">E-post</label>
+        <input id="epost" name="epost" type="email" autocomplete="email" required>
+        <p class="error" id="epost-feil" hidden>Skriv inn en gyldig e-postadresse.</p>
+
+        <label for="melding">Melding</label>
+        <textarea id="melding" name="melding" rows="5" required></textarea>
+        <p class="error" id="melding-feil" hidden>Skriv en melding.</p>
+
+        <button type="submit">Send melding</button>
+        <p id="skjema-status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-cols">
+      <div>
+        <p class="footer-title">Siden</p>
+        <a href="#bruk">Bruksområder</a>
+        <a href="#velg">Slik velger du</a>
+        <a href="om.html">Om siden</a>
+      </div>
+      <div>
+        <p class="footer-title">Mer fra NVIDIA</p>
+        <a href="https://www.nvidia.com" target="_blank" rel="noopener noreferrer">nvidia.com</a>
+        <a href="https://developer.nvidia.com" target="_blank" rel="noopener noreferrer">developer.nvidia.com</a>
+      </div>
+    </div>
+    <p class="legal">Uoffisiell landingside laget som skoleoppgave. NVIDIA, GeForce, RTX, DLSS og CUDA er varemerker som tilhører NVIDIA Corporation.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
