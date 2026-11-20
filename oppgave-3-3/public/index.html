@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz med highscore</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <section class="quiz" aria-labelledby="tittel">
+      <h1 id="tittel">Quiz</h1>
+
+      <form id="start-skjema" novalidate>
+        <label for="navn">Navn</label>
+        <input id="navn" type="text" maxlength="20" autocomplete="nickname" required>
+        <p class="error" id="navn-feil" hidden>Skriv inn et navn på opptil 20 tegn.</p>
+        <button type="submit">Start quizen</button>
+      </form>
+
+      <form id="quiz-skjema" hidden>
+        <p id="fremdrift"></p>
+        <fieldset>
+          <legend id="spørsmål"></legend>
+          <div id="valg"></div>
+        </fieldset>
+        <p class="error" id="quiz-feil" hidden></p>
+        <button type="submit" id="neste">Neste</button>
+      </form>
+
+      <div id="resultat" hidden>
+        <h2 id="poeng"></h2>
+        <ul id="gjennomgang"></ul>
+        <button type="button" id="igjen">Spill igjen</button>
+      </div>
+    </section>
+
+    <section class="highscore" aria-labelledby="hs-tittel">
+      <h2 id="hs-tittel">Highscore</h2>
+      <ol id="liste"></ol>
+      <p id="tom" hidden>Ingen resultater ennå. Bli den første.</p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
